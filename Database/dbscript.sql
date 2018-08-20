@@ -1,0 +1,1 @@
+/*Script file for Automated Parking Space App database*/
