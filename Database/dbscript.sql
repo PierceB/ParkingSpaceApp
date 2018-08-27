@@ -1,31 +1,31 @@
 -- ****************** SqlDBM: MySQL ******************;
 -- ***************************************************;
 
-DROP TABLE `Log`;
+DROP TABLE `LOG`;
 
 
-DROP TABLE `Parking Bay`;
+DROP TABLE `PARKING_BAY`;
 
 
-DROP TABLE `Parking Lot`;
+DROP TABLE `PARKING_LOT`;
 
 
-DROP TABLE `Campus`;
+DROP TABLE `CAMPUS`;
 
 
-DROP TABLE `Accounts`;
+DROP TABLE `ACCOUNTS`;
 
 
 
 -- ************************************** `Campus`
 
-CREATE TABLE `Campus`
+CREATE TABLE `CAMPUS`
 (
- `CampusID`   INTEGER unsigned NOT NULL AUTO_INCREMENT ,
- `CampusName` VARCHAR(255) NOT NULL ,
- `Address`    VARCHAR(255) NOT NULL ,
+ `CAMPUS_ID`   INTEGER unsigned NOT NULL AUTO_INCREMENT ,
+ `CAMPUS_NAME` VARCHAR(255) NOT NULL ,
+ `CAMPUS_ADDRESS`    VARCHAR(255) NOT NULL ,
 
-PRIMARY KEY (`CampusID`)
+PRIMARY KEY (`CAMPUS_ID`)
 );
 
 
@@ -34,15 +34,15 @@ PRIMARY KEY (`CampusID`)
 
 -- ************************************** `Accounts`
 
-CREATE TABLE `Accounts`
+CREATE TABLE `ACCOUNTS`
 (
- `AccountID`     INTEGER unsigned NOT NULL AUTO_INCREMENT ,
- `Google Email ` VARCHAR(255) NOT NULL ,
- `IsAdmin`       BINARY NOT NULL ,
- `Name`          VARCHAR(255) ,
- `Surname`       VARCHAR(255) ,
+ `ACCOUNT_ID`     INTEGER unsigned NOT NULL AUTO_INCREMENT ,
+ `ACCOUNT_EMAIL ` VARCHAR(255) NOT NULL ,
+ `ACCOUNT_IS_ADMIN`       BINARY NOT NULL ,
+ `ACCOUNT_FNAME`          VARCHAR(255) ,
+ `ACCOUNT_SURNAME`       VARCHAR(255) ,
 
-PRIMARY KEY (`AccountID`)
+PRIMARY KEY (`ACCOUNT_ID`)
 ) COMMENT='Table used to store which google email addresses are admin for login.';
 
 
@@ -51,21 +51,21 @@ PRIMARY KEY (`AccountID`)
 
 -- ************************************** `Parking Lot`
 
-CREATE TABLE `Parking Lot`
+CREATE TABLE `PARKING_LOT`
 (
- `LotID`           INTEGER unsigned NOT NULL AUTO_INCREMENT ,
- `CampusID`        INTEGER unsigned NOT NULL ,
- `Available Spots` INTEGER ,
- `All`             BINARY NOT NULL ,
- `FirstYear`       BINARY NOT NULL ,
- `SecondYear`      BINARY NOT NULL ,
- `ThirdYear`       BINARY NOT NULL ,
- `PostGrad`        BINARY NOT NULL ,
- `Staff`           BINARY NOT NULL ,
+ `LOT_ID`           INTEGER unsigned NOT NULL AUTO_INCREMENT ,
+ `CAMPUS_ID`        INTEGER unsigned NOT NULL ,
+ `LOT_AVAILABLE_SPOTS` INTEGER ,
+ `LOT_ALL`             BINARY NOT NULL ,
+ `LOT_FIRST_YEAR`       BINARY NOT NULL ,
+ `LOT_SECOND_YEAR`      BINARY NOT NULL ,
+ `LOT_THIRD_YEAR`       BINARY NOT NULL ,
+ `LOT_POST_GRAD`        BINARY NOT NULL ,
+ `LOT_STAFF`           BINARY NOT NULL ,
 
-PRIMARY KEY (`LotID`, `CampusID`),
-KEY `fkIdx_48` (`CampusID`),
-CONSTRAINT `FK_48` FOREIGN KEY `fkIdx_48` (`CampusID`) REFERENCES `Campus` (`CampusID`)
+PRIMARY KEY (`LOT_ID`, `CAMPUS_ID`),
+KEY `fkIdx_48` (`CAMPUS_ID`),
+CONSTRAINT `FK_48` FOREIGN KEY `fkIdx_48` (`CAMPUS_ID`) REFERENCES `CAMPUS` (`CAMPUS_ID`)
 ) COMMENT='Table used to store information about parking lots, such as there adresses, which campus they are on and the permissions required to enter them.';
 
 
@@ -74,17 +74,17 @@ CONSTRAINT `FK_48` FOREIGN KEY `fkIdx_48` (`CampusID`) REFERENCES `Campus` (`Cam
 
 -- ************************************** `Log`
 
-CREATE TABLE `Log`
+CREATE TABLE `LOG`
 (
- `LogID`    INTEGER NOT NULL ,
- `LotID`    INTEGER unsigned NOT NULL ,
- `CampusID` INTEGER unsigned NOT NULL ,
- `Log_date` DATETIME NOT NULL ,
- `Log`      JSON NOT NULL ,
+ `LOG_ID`    INTEGER NOT NULL ,
+ `LOT_ID`    INTEGER unsigned NOT NULL ,
+ `CAMPUS_ID` INTEGER unsigned NOT NULL ,
+ `LOG_DATE` DATETIME NOT NULL ,
+ `LOG`      JSON NOT NULL ,
 
-PRIMARY KEY (`LogID`, `LotID`, `CampusID`),
-KEY `fkIdx_60` (`LotID`, `CampusID`),
-CONSTRAINT `FK_60` FOREIGN KEY `fkIdx_60` (`LotID`, `CampusID`) REFERENCES `Parking Lot` (`LotID`, `CampusID`)
+PRIMARY KEY (`LOG_ID`, `LOT_ID`, `CAMPUS_ID`),
+KEY `fkIdx_60` (`LOT_ID`, `CAMPUS_ID`),
+CONSTRAINT `FK_60` FOREIGN KEY `fkIdx_60` (`LOT_ID`, `CAMPUS_ID`) REFERENCES `PARKING_LOT` (`LOG_ID`, `CAMPUS_ID`)
 );
 
 
@@ -93,17 +93,17 @@ CONSTRAINT `FK_60` FOREIGN KEY `fkIdx_60` (`LotID`, `CampusID`) REFERENCES `Park
 
 -- ************************************** `Parking Bay`
 
-CREATE TABLE `Parking Bay`
+CREATE TABLE `PARKING_BAY`
 (
- `BayID`       INTEGER unsigned NOT NULL AUTO_INCREMENT ,
- `LotID`       INTEGER unsigned NOT NULL ,
- `CampusID`    INTEGER unsigned NOT NULL ,
- `isFull`      BINARY NOT NULL ,
- `Coordinates` JSON NOT NULL ,
+ `BAY_ID`       INTEGER unsigned NOT NULL AUTO_INCREMENT ,
+ `LOT_ID`       INTEGER unsigned NOT NULL ,
+ `CAMPUS_ID`    INTEGER unsigned NOT NULL ,
+ `BAY_IS_FULL`      BINARY NOT NULL ,
+ `BAY_COORDINATES` JSON NOT NULL ,
 
-PRIMARY KEY (`BayID`, `LotID`, `CampusID`),
-KEY `fkIdx_32` (`LotID`, `CampusID`),
-CONSTRAINT `FK_32` FOREIGN KEY `fkIdx_32` (`LotID`, `CampusID`) REFERENCES `Parking Lot` (`LotID`, `CampusID`)
+PRIMARY KEY (`BAY_ID`, `LOT_ID`, `CAMPUS_ID`),
+KEY `fkIdx_32` (`LOT_ID`, `CAMPUS_ID`),
+CONSTRAINT `FK_32` FOREIGN KEY `fkIdx_32` (`LOT_ID`, `CAMPUS_ID`) REFERENCES `PARKING_LOT` (`LOT_ID`, `CAMPUS_ID`)
 ) COMMENT='Table used to store information about each parking bay in a specific parking lot. \n\nEach parking bay has a unique BayID and LOTID, where the LotID corresponds to a parking lot in the Parking lot table.';
 
 
