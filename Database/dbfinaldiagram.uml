@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>DATABASE</ID>
+  <OriginalElement>76c7c375-672e-483b-9f20-c6fe0bff2b7b</OriginalElement>
+  <nodes>
+    <node x="82.75" y="146.0">76c7c375-672e-483b-9f20-c6fe0bff2b7b.TABLE:APSAPP_DB.PARKING_LOTS</node>
+    <node x="207.0" y="512.0">76c7c375-672e-483b-9f20-c6fe0bff2b7b.TABLE:APSAPP_DB.PARKING_LOG</node>
+    <node x="408.0" y="0.0">76c7c375-672e-483b-9f20-c6fe0bff2b7b.TABLE:APSAPP_DB.ACCOUNTS</node>
+    <node x="0.0" y="523.0">76c7c375-672e-483b-9f20-c6fe0bff2b7b.TABLE:APSAPP_DB.PARKING_SPACE</node>
+    <node x="74.75" y="0.0">76c7c375-672e-483b-9f20-c6fe0bff2b7b.TABLE:APSAPP_DB.CAMPUS</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="76c7c375-672e-483b-9f20-c6fe0bff2b7b.TABLE:APSAPP_DB.PARKING_LOG" target="76c7c375-672e-483b-9f20-c6fe0bff2b7b.TABLE:APSAPP_DB.PARKING_LOTS">
+      <point x="0.0" y="-70.0" />
+      <point x="285.0" y="487.0" />
+      <point x="242.5" y="487.0" />
+      <point x="53.25" y="158.0" />
+    </edge>
+    <edge source="76c7c375-672e-483b-9f20-c6fe0bff2b7b.TABLE:APSAPP_DB.PARKING_SPACE" target="76c7c375-672e-483b-9f20-c6fe0bff2b7b.TABLE:APSAPP_DB.PARKING_LOTS">
+      <point x="0.0" y="-59.0" />
+      <point x="93.5" y="487.0" />
+      <point x="136.0" y="487.0" />
+      <point x="-53.25" y="158.0" />
+    </edge>
+    <edge source="76c7c375-672e-483b-9f20-c6fe0bff2b7b.TABLE:APSAPP_DB.PARKING_LOTS" target="76c7c375-672e-483b-9f20-c6fe0bff2b7b.TABLE:APSAPP_DB.CAMPUS">
+      <point x="0.0" y="-158.0" />
+      <point x="0.0" y="48.0" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Group" zoom="1.0" x="325.5" y="326.0" />
+  <SelectedNodes />
+  <Categories>
+    <Category>Key columns</Category>
+    <Category>Columns</Category>
+  </Categories>
+</Diagram>
+
