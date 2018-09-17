@@ -47,7 +47,7 @@ def Crop(imageSnapshot, x1,x2,x3,x4):
     # Now we can crop again just the envloping rectangle
     finalImage = cropedImage[minY:maxY,minX:maxX]
     
-    cv2.imwrite('ParkingBay.jpeg',finalImage)
+   # cv2.imwrite('ParkingBay.jpeg',finalImage)
 
 x1=[0,130]                     #Set 4 coordinates you want to crop here as x1,x2,x3,x4 
 x2=[130,0]
