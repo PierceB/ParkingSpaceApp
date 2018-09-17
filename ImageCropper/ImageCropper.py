@@ -1,27 +1,89 @@
 import cv2
 import numpy as np
+import math
+
+#It currently needs the polygon to be ordered from top left-> top right -> bottom right -> bottom left
+def onSegment(p, q, r):  # Given three colinear points, check if Q lies on the line pr
+    if ((q[0] <= max(p[0], r[1])) and (q[0] >= min(p[0], r[0])) and (q[1] <= max(p[1], r[1])) and (
+            q[1] >= min(q[1], r[1]))):
+        return (True)
+    return (False)
 
 
+def orientation(p, q, r):  # Check orientation of the triplet: 0= colinear, 1=clockwise, 2=counterclockwise
+    orientationVal = (q[1] - p[1]) * (r[0] - q[0]) - (q[0] - p[0]) * (r[1] - q[1])
 
-def Crop(imageSnapshot, x1,x2,x3,x4):
-    # Read a image
-    I = cv2.imread('snapshot.jpeg')   #Input the pictures name to whatever is decided to be called 
-    
-    # Define the polygon coordinates to use or the crop
-    polygon = [[x1,x2,x3,x4]]            #These would be the 4 points to crop. This method works for more points if you want to do a convex hull
-    
-    
-    # Finding the outer points of the polygon
-    minX = I.shape[1]            #Get rows and columns of the picture and set the min to the boundry (largest possible value)
+    if (orientationVal == 0):
+        return (0)
+    if (orientationVal > 0):
+        return (1)
+    else:
+        return (2)
+
+
+def doesItIntersect(p1, q1, p2, q2):
+    # Used o check the orientations for special/general cases
+
+    o1 = orientation(p1, q1, p2)
+    o2 = orientation(p1, q1, q2)
+    o3 = orientation(p2, q2, p1)
+    o4 = orientation(p2, q2, q1)
+
+    # General case
+
+    if (o1 != o2 and o3 != o4):
+        return (True)
+
+    if (o1 == 0 and onSegment(p1, p2, q1)):
+        return (True)
+
+    if (o2 == 0 and onSegment(p1, q2, q1)):
+        return (True)
+
+    if (o3 == 0 and onSegment(p2, p1, q2)):
+        return (True)
+
+    if (o4 == 0 and onSegment(p2, q1, q2)):
+        return (True)
+
+    return (False)
+
+
+def isInside(polygon, p):
+    extreme = [0, p[1]]  # create a point for line segment
+
+    i = 0
+    count = 0
+
+    while (1):
+
+        next = (i + 1) % 4
+
+        if (doesItIntersect(polygon[i], polygon[next], p, extreme)):
+            if (orientation(polygon[i], p, polygon[next]) == 0):
+                return (onSegment(polygon[i], p, polygon[next]))
+
+            count = count + 1;
+        i = next
+        if (i == 0):
+            break
+    if (count % 2 == 1):
+        return (True)
+
+    return (False)
+
+
+def Crope(polygon, snapshotname):
+    minX = math.inf  # Find the Biggest x and biggest y, and smallest x and smallest y
     maxX = -1
-    minY = I.shape[0]
+    minY = math.inf
     maxY = -1
-    
-    for point in polygon[0]:           #Cycle through the points give to find the smallest/largest to use as boundries
-    
+
+    for point in polygon:  # Cycle through the points give to find the smallest/largest to use as boundries
+
         x = point[0]
         y = point[1]
-    
+
         if x < minX:
             minX = x
         if x > maxX:
@@ -30,27 +92,26 @@ def Crop(imageSnapshot, x1,x2,x3,x4):
             minY = y
         if y > maxY:
             maxY = y
-    
-    
-    cropedImage = np.zeros_like(I)      #create an array of same size/type as the picture but with all values as 0
-    for y in range(0,I.shape[0]):
-        for x in range(0, I.shape[1]): #Iterate through all rows and columns
-    
-            if x < minX or x > maxX or y < minY or y > maxY:      
-                continue                                            #Check if point is inside boundry, if not go to next iteration of loop
-    
-            if cv2.pointPolygonTest(np.asarray(polygon),(x,y),False) >= 0: #Check if point is in polygon, if it is then assign the pixel data from the original image to the cropped image array
-                cropedImage[y, x, 0] = I[y, x, 0]
-                cropedImage[y, x, 1] = I[y, x, 1]
-                cropedImage[y, x, 2] = I[y, x, 2]
 
-    # Now we can crop again just the envloping rectangle
-    finalImage = cropedImage[minY:maxY,minX:maxX]
-    
-    cv2.imwrite('ParkingBay.jpeg',finalImage)
+    ImageMatrix = cv2.imread(snapshotname)  # Input the pictures name to whatever is decided to be called
+    cropedImage = np.zeros_like(ImageMatrix)
 
-x1=[0,130]                     #Set 4 coordinates you want to crop here as x1,x2,x3,x4 
-x2=[130,0]
-x3=[0,0]
-x4=[130,130]
-Crop('snapshot.jpeg', x1, x2, x3, x4)
+    for x in range(minX, maxX):
+        for y in range(minY, maxY):
+            if x < minX or x > maxX or y < minY or y > maxY:
+                continue  # Check if point is inside boundry, if not go to next iteration of loop
+
+            temp = [x, y]
+
+            if (isInside(polygon, temp)):
+                cropedImage[x, y, 0] = ImageMatrix[x, y, 0]
+                cropedImage[x, y, 1] = ImageMatrix[x, y, 1]
+                cropedImage[x, y, 2] = ImageMatrix[x, y, 2]
+
+    #cv2.imwrite('ParkingBay1.jpeg', cropedImage)
+
+
+
+polygon = [[25, 50], [100, 50], [100, 100], [50, 100]]
+snapshotname = 'snapshot.jpeg'
+Crope(polygon, snapshotname)
