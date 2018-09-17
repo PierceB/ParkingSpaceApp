@@ -108,7 +108,7 @@ def Crope(polygon, snapshotname):
                 cropedImage[x, y, 1] = ImageMatrix[x, y, 1]
                 cropedImage[x, y, 2] = ImageMatrix[x, y, 2]
 
-    #cv2.imwrite('ParkingBay1.jpeg', cropedImage)
+    cv2.imwrite('ParkingBay1.jpeg', cropedImage)
 
 
 
@@ -116,10 +116,3 @@ polygon = [[25, 50], [100, 50], [100, 100], [50, 100]]
 snapshotname = 'snapshot.jpeg'
 Crope(polygon, snapshotname)
 
-
-x1=[0,130]                     #Set 4 coordinates you want to crop here as x1,x2,x3,x4 
-x2=[130,0]
-x3=[0,0]
-x4=[130,130]
-Crop('snapshot.jpeg', x1, x2, x3, x4)
->>>>>>> fd616306b310ee5a9725aea75fbc2253c3e92ec9
