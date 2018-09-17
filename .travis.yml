@@ -4,5 +4,5 @@ python:
  - "3.6"
 install:
  - pip install -r ImageCropper/requirements.txt
-script: python ImageCropper.py
+script: python ImageCropper/ImageCropper.py
 
