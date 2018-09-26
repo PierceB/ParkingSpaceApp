@@ -2,12 +2,15 @@ language: python
 
 python:
  - "3.6"
-install:
+before_install:
  - pip install -r ImageCropper/requirements.txt
  - pip install Coverage
+ - pip install pytest pytest-cov
+ - pip install coveralls
+ 
 script: 
  - cd ImageCropper
- - coverage run ImageCropper.py
+ - py.test
  - cd -
  
 after_success: coveralls
