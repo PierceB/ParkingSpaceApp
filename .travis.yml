@@ -10,7 +10,7 @@ before_install:
  
 script: 
  - cd ImageCropper
- - coverage run --source=ImageCropper test_image.py test/
+ - py.test --cov=ImageCropper test_image.py/
  - cd -
  
 after_success: coveralls
