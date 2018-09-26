@@ -11,6 +11,5 @@ before_install:
 script: 
  - cd ImageCropper
  - py.test --cov=ImageCropper test_image.py/
- - cd -
  
 after_success: coveralls
