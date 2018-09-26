@@ -7,7 +7,7 @@ install:
  - pip install Coverage
 script: 
  - cd ImageCropper
- - python ImageCropper.py
+ - coverage run ImageCropper.py
  - cd -
  
 after_success: coveralls
