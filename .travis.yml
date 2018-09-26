@@ -8,4 +8,5 @@ script:
  - cd ImageCropper
  - python ImageCropper.py
  - cd -
-
+ 
+after_success: coveralls
