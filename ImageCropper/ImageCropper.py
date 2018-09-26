@@ -1,8 +1,43 @@
+import math
+from Networks.Auto_Park_Space_network_vgg_16 import auto_park_det_net
 import cv2
 import numpy as np
-import math
+from keras.optimizers import SGD
+import os
 
-#It currently needs the polygon to be ordered from top left-> top right -> bottom right -> bottom left
+
+def polySort(
+        polygon):  # Pretty dirty method to make sure we don't get crossing lines, wont always work but will work for non extreme cases
+    minpoint = polygon[0]
+
+    for point in polygon:
+        if point[0] < minpoint[0]:
+            minpoint = point
+
+    x1 = minpoint
+    polygon.remove(x1)
+
+    minpoint = polygon[0]
+    for point in polygon:
+        if point[0] < minpoint[0]:
+            minpoint = point
+
+    x2 = minpoint
+    polygon.remove(x2)
+
+    x3 = polygon[0]
+    x4 = polygon[1]
+
+    if ((x3[0] + x3[1]) < (x4[0] + x4[1])):
+        newpoly = [x1, x2, x4, x3]
+    else:
+        newpoly = [x1, x2, x3, x4]
+
+    return (newpoly)
+
+
+############################################Cropper helper methods
+
 def onSegment(p, q, r):  # Given three colinear points, check if Q lies on the line pr
     if ((q[0] <= max(p[0], r[1])) and (q[0] >= min(p[0], r[0])) and (q[1] <= max(p[1], r[1])) and (
             q[1] >= min(q[1], r[1]))):
@@ -73,6 +108,7 @@ def isInside(polygon, p):
     return (False)
 
 
+#########################################Cropper
 def Crope(polygon, snapshotname):
     minX = math.inf  # Find the Biggest x and biggest y, and smallest x and smallest y
     maxX = -1
@@ -108,11 +144,53 @@ def Crope(polygon, snapshotname):
                 cropedImage[x, y, 1] = ImageMatrix[x, y, 1]
                 cropedImage[x, y, 2] = ImageMatrix[x, y, 2]
 
-    cv2.imwrite('ParkingBay1.jpeg', cropedImage)
+    return (cropedImage)
+    # cv2.imwrite('ParkingBay2.jpeg',cropedImage) #Use if you want to draw image
+
+
+##################################################Classifier
+
+# !/usr/bin/env python2
+# -*- coding: utf-8 -*-
+"""
+Created on Sat Mar 10 00:25:14 2018
+
+@author: julien
+"""
 
 
 
-polygon = [[25, 50], [100, 50], [100, 100], [50, 100]]
-snapshotname = 'snapshot.jpeg'
-Crope(polygon, snapshotname)
+def classify(image):
+    # input image
+    image = cv2.imread(image)
+
+    # susbtract the dataset mean from each image
+    image2 = image - [128.0141111]
+
+    # hope you got this
+    image3 = cv2.resize(image2, (image_size, image_size))
+
+    # adding a new dimension to the image for the predict function that take an input of format (image_size,image_size,channel,number_of_images)
+    # in this instance, we only have one image per pass, since we are predicting
+    image3 = image3[np.newaxis, :, :, ]
+
+    sgd = SGD(lr=0.0001, momentum=0.9, nesterov=True)
+
+    model.compile(loss='categorical_crossentropy', optimizer=sgd, metrics=["accuracy"])
+
+    cnn_train = model.predict(image3)
+    # we chose the second index because it corresponds to how vacant the spot is.
+    if cnn_train[0][0] > 0.65:
+        return 'vacant'
+    else:
+        return 'occupied'
+
+
+def getPolygon(ParkingBayID):
+    # Method to get coordinates from the database server
+    # STILL TODO:
+    # polygon= [4 coordinates]
+    polygon = [[25, 50], [100, 50], [100, 100], [50, 100]]
+    return (polygon)
+
 
