@@ -7,6 +7,10 @@ before_install:
  - pip install Coverage
  - pip install pytest pytest-cov
  - pip install coveralls
+ - apt install libopencv-dev
+ - pip3 install opencv-python
+ - pip3 install tensorflow
+ - pip install keras
  
 script: 
  - cd ImageCropper
