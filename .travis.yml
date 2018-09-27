@@ -3,9 +3,6 @@ language: python
 python:
  - "2.7"
 before_install:
-
- - pip install -r parking_classifier/requirements2.txt
-
  - pip install Coverage
  - pip install pytest pytest-cov
  - pip install coveralls
@@ -13,6 +10,7 @@ before_install:
  - pip3 install opencv-python
  - pip3 install tensorflow
  - pip install keras
+ - pip install -r parking_classifier/requirements2.txt
  
 script: 
  - cd ImageCropper
