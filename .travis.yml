@@ -3,14 +3,11 @@ language: python
 python:
  - "2.7"
 before_install:
- - apt-get update 
+
  - pip install Coverage
  - pip install pytest pytest-cov
  - pip install coveralls
- - sudo -E apt install libopencv-dev
- - sudo -E -H pip3 install opencv-python
- - sudo -E -H pip3 install tensorflow
- - sudo -E -H pip install keras
+
  - pip install -r parking_classifier/requirements2.txt
  
 script: 
