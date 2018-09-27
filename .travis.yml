@@ -3,7 +3,7 @@ language: python
 python:
  - "2.7"
 before_install:
- - pip install -r ImageCropper/requirements.txt
+ - pip install -r ImageCropper/requirements2.txt
  - pip install Coverage
  - pip install pytest pytest-cov
  - pip install coveralls
