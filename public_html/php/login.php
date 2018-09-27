@@ -7,7 +7,7 @@
  */
     include ("config.php");
     session_start();
-
+	$echo("dfsdsfsd sdf sdf");
     if($_SERVER["REQUEST_METHOD"] == "POST"){
         $username = mysqli_real_escape_string($dbc, $_POST['login_username']);
         $password = mysqli_real_escape_string($dbc, $_POST['login_password']);
