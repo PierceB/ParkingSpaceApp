@@ -37,18 +37,21 @@
 
       <div class="form-signin">
         <h2 class="form-signin-heading">Please sign in</h2>
-        <label for="inputEmail" class="sr-only">Email address</label>
-        <input type="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>
+        <form id="login-form" action="" method="post" role="form">
+          <?php
+            include("./php/login.php");
+          ?>
+        <label for="inputEmail" class="sr-only">Username</label>
+        <input type="text" id="inputEmail" class="form-control" name="login_username" placeholder="Enter Username" required autofocus>
         <label for="inputPassword" class="sr-only">Password</label>
-        <input type="password" id="inputPassword" class="form-control" placeholder="Password" required>
+        <input type="password" id="inputPassword" class="form-control" name="login_password" placeholder="Enter Password" required>
         <div class="checkbox">
           <label>
             <input type="checkbox" value="remember-me"> Remember me
           </label>
         </div>
-        <a href="./dashboard/index.html">
-        <button class="btn btn-lg btn-primary btn-block">Sign in</button>
-        </a>
+        <input class="btn btn-lg btn-primary btn-block" type="submit" value="Sign in" name="login_submit">
+        </form>
       </div>
 
     </div> <!-- /container -->
