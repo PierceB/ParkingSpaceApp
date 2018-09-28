@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "184353238587",
+    "firebase_url": "https://wits-parking-spa-1537203899285.firebaseio.com",
+    "project_id": "wits-parking-spa-1537203899285",
+    "storage_bucket": "wits-parking-spa-1537203899285.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:184353238587:android:0b796c7859e872d3",
+        "android_client_info": {
+          "package_name": "com.wits.witsparkingspace"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "184353238587-nsps2hbnvbv414po890k70ovkjrqssk7.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.wits.witsparkingspace",
+            "certificate_hash": "acae63b17aceed8d4e87e54beff80d73ab2f5488"
+          }
+        },
+        {
+          "client_id": "184353238587-52p4bgv7gf28nm3ujj7ru74pq9p4v82v.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCR1XWBfKXSwcfKT39T4zYLc1ksR9KDWn0"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "184353238587-52p4bgv7gf28nm3ujj7ru74pq9p4v82v.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
