@@ -11,7 +11,7 @@ before_install:
  #- pip install opencv-python
 # - pip install tensorflow
  #- pip install keras
- - pip install -r parking_classifier/requirements.txt
+ - pip install -r parking_classifier/requirements3.txt
  
 script: 
  - cd ImageCropper
