@@ -8,9 +8,9 @@ before_install:
  - pip install pytest pytest-cov
  - pip install coveralls
 #- sudo -E apt install libopencv-dev 
- - pip install opencv-python
+ #- pip install opencv-python
  - pip install tensorflow
- - pip install keras
+ #- pip install keras
  - pip install -r parking_classifier/requirements.txt
  
 script: 
