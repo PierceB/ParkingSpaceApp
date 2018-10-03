@@ -162,7 +162,7 @@ Created on Sat Mar 10 00:25:14 2018
 
 def classify(image):
     # input image
-    image = cv2.imread(image)
+    #image = cv2.imread(image)
 
     # susbtract the dataset mean from each image
     image2 = image - [128.0141111]
