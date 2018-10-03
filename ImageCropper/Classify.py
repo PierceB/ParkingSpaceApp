@@ -7,11 +7,10 @@ from keras.optimizers import SGD
 import os
 
 
-
-#image_size = 100
-#model = auto_park_det_net((100, 100, 3))
-#model_name = 'comvo_1.h5'
-#model.load_weights(model_name)
+image_size = 100
+model = auto_park_det_net((100, 100, 3))
+model_name = 'comvo_1.h5'
+model.load_weights(model_name)
 
 baylist = [0]  # Placeholder
 for bayID in baylist:
@@ -21,11 +20,13 @@ for bayID in baylist:
     croppedImage = IA.Crope(SortedPolygon, snapshotname)
     #cv2.imwrite('ParkingBay2.jpeg', croppedImage)
 
- #   isfull = IA.classify(croppedImage)
+    isfull = IA.classify(croppedImage)
 
- #   if (isfull == 'occupied'):
- #       val = True
+    if (isfull == 'occupied'):
+        val = True
         # Push val to database for parkingspot
- #   else:
- #       val = False
+    else:
+        val = False
         # Pus val to database for parkingspot
+
+print(val)
