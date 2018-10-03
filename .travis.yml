@@ -8,7 +8,7 @@ before_install:
  - pip install pytest pytest-cov
  - pip install coveralls
 
- - pip install -r parking_classifier/requirements2.txt
+ - pip install -r parking_classifier/requirements.txt
  
 script: 
  - cd ImageCropper
