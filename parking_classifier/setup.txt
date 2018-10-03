@@ -1,8 +1,8 @@
-read pass
+#read pass
 #Type your CNS password
 
-export http_proxy=http://students%5cSTUDENT_NUMBER:$pass@proxyss.wits.ac.za:80/
-export https_proxy=https://students%5cSTUDENT_NUMBER:$pass@proxyss.wits.ac.za:80/
+#export http_proxy=http://students%5cSTUDENT_NUMBER:$pass@proxyss.wits.ac.za:80/
+#export https_proxy=https://students%5cSTUDENT_NUMBER:$pass@proxyss.wits.ac.za:80/
 
 sudo -E apt install libopencv-dev
 sudo -E -H pip3 install opencv-python
