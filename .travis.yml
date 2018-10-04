@@ -13,6 +13,7 @@ install:
 
 before_install:
  - sudo apt-get update
+ - chmod +x ImageCropper/venv/bin/activate
  - ImageCropper/venv/bin/activate
  
 script: 
