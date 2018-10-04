@@ -1,19 +1,33 @@
 
 language: python
+
+# this supposedly caches your python dependencies between travis builds.
+# i've no idea if it *actually* works...
 cache: pip
 
+# i haven't tested whether 2.7 does indeed work, yet.
+# seems best to just run the python version you're using locally, though.
 python:
- - "2.7"
- - "3.6"
+ - "3.5"
 
+# i moved your dependency installs into the install step.
+# ultimately, this makes no difference, it's just neater...
 install:
   - pip install Coverage pytest pytest-cov coveralls
-  #- pip install -r ImageCropper/requirements.txt
-  - pip install -r parking_classifier/requirements3.txt
+  - pip install -r parking_classifier/requirements-without-tensorflow-gpu.txt
 
 before_install:
+ 
+ # this apt update might not be required, i haven't tested
  - sudo apt-get update
+ 
+ # run the `chmod` command below locally once, then commit the
+ # file, then remove this line from this file
  - chmod +x ImageCropper/venv/bin/activate
+ 
+ # i don't know whether it'll work without activating your venv.
+ # much like using the same python version you're using locally, it just seemed like a good idea.
+ # try testing without.
  - ImageCropper/venv/bin/activate
  
 script: 
