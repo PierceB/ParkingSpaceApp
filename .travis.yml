@@ -7,6 +7,7 @@ before_install:
  - pip install Coverage
  - pip install pytest pytest-cov
  - pip install coveralls
+ - sudo apt-get update 
  - sudo -E apt install libopencv-dev 
  #- pip install opencv-python
 # - pip install tensorflow
