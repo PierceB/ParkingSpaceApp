@@ -1,22 +1,21 @@
+
 language: python
 
 python:
  - "2.7"
-before_install:
 
- - pip install Coverage
- - pip install pytest pytest-cov
- - pip install coveralls
- - sudo apt-get update 
- #- sudo -E apt install libopencv-dev 
- #- pip install opencv-python
-# - pip install tensorflow
- #- pip install keras
+before_install:
+ - sudo apt-get update
+ - sudo ldconfig /usr/local/cuda/lib64
+ - ls -la /usr/local/cuda
+ - ls -la /opt/cuda
+ - exit 1
+ - pip install Coverage pytest pytest-cov coveralls
  - pip install -r parking_classifier/requirements3.txt
- 
+
 script: 
  - cd ImageCropper
  - cat comvo_1.h5.part* > comvo_1.h5
- - py.test --cov=ImageCropper test_image.py/
+ - py.test --cov=ImageCropper test_image.py
  
 after_success: coveralls
