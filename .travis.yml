@@ -6,12 +6,10 @@ python:
 
 before_install:
  - sudo apt-get update
- - sudo ldconfig /usr/local/cuda/lib64
- - ls -la /usr/local/cuda
- - ls -la /opt/cuda
- - exit 10
+ - ./ParkingSpaceApp/ImageCropper/venv/bin/activate
  - pip install Coverage pytest pytest-cov coveralls
- - pip install -r parking_classifier/requirements3.txt
+ #- pip install -r parking_classifier/requirements3.txt
+ - pip install -r ./ParkingSpaceApp/ImageCropper/requirements.txt
 
 script: 
  - cd ImageCropper
