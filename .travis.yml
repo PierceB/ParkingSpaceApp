@@ -4,19 +4,17 @@ cache: pip
 
 python:
  - "2.7"
+ - "3.6"
 
 install:
-  - pip install -r requirements.txt
+  - pip install Coverage pytest pytest-cov coveralls
+  - pip install -r ImageCropper/requirements.txt
+# - pip install -r parking_classifier/requirements3.txt
 
 before_install:
  - sudo apt-get update
- - ls -la .
- - exit 1
- #- ./ParkingSpaceApp/ImageCropper/venv/bin/activate
- - pip install Coverage pytest pytest-cov coveralls
- #- pip install -r parking_classifier/requirements3.txt
- #- pip install -r ./ParkingSpaceApp/ImageCropper/requirements.txt
-
+ - ImageCropper/venv/bin/activate
+ 
 script: 
  - cd ImageCropper
  - cat comvo_1.h5.part* > comvo_1.h5
