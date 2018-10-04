@@ -8,8 +8,8 @@ python:
 
 install:
   - pip install Coverage pytest pytest-cov coveralls
-  - pip install -r ImageCropper/requirements.txt
-# - pip install -r parking_classifier/requirements3.txt
+  #- pip install -r ImageCropper/requirements.txt
+  - pip install -r parking_classifier/requirements3.txt
 
 before_install:
  - sudo apt-get update
