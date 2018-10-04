@@ -7,7 +7,7 @@ imagesize==0.7.1
 opencv-python==3.2.0.7
 pandas==0.20.1
 pytest==3.0.7
-opencv-python
+#opencv-python
 
 
 
