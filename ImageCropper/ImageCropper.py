@@ -110,9 +110,9 @@ def isInside(polygon, p):
 
 #########################################Cropper
 def Crope(polygon, snapshotname):
-    minX = math.inf  # Find the Biggest x and biggest y, and smallest x and smallest y
+    minX = float('inf')  # Find the Biggest x and biggest y, and smallest x and smallest y
     maxX = -1
-    minY = math.inf
+    minY = float('inf')
     maxY = -1
 
     for point in polygon:  # Cycle through the points give to find the smallest/largest to use as boundries
