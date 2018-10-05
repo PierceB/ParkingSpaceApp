@@ -10,7 +10,7 @@
   
 Repository for the parking space app by the Wits Designers. 
 
-Too run this on your own machine make sure to combine the comvo_1.h5.part* files using 
+To run this on your own machine make sure to combine the comvo_1.h5.part* files using 
 cat comvo_1.h5.part* > comvo_1.h5
 
 The project is still in early devolpment. 
