@@ -1,22 +1,38 @@
+
 language: python
 
-python:
- - "2.7"
-before_install:
+# this supposedly caches your python dependencies between travis builds.
+# i've no idea if it *actually* works...
+cache: pip
 
- - pip install Coverage
- - pip install pytest pytest-cov
- - pip install coveralls
- - sudo apt-get update 
- #- sudo -E apt install libopencv-dev 
- #- pip install opencv-python
-# - pip install tensorflow
- #- pip install keras
- - pip install -r parking_classifier/requirements3.txt
+# i haven't tested whether 2.7 does indeed work, yet.
+# seems best to just run the python version you're using locally, though.
+python:
+ - "3.5"
+
+# i moved your dependency installs into the install step.
+# ultimately, this makes no difference, it's just neater...
+install:
+  - pip install Coverage pytest pytest-cov coveralls
+  - pip install -r parking_classifier/requirements-without-tensorflow-gpu.txt
+
+before_install:
+ 
+ # this apt update might not be required, i haven't tested
+ - sudo apt-get update
+ 
+ # run the `chmod` command below locally once, then commit the
+ # file, then remove this line from this file
+ - chmod +x ImageCropper/venv/bin/activate
+ 
+ # i don't know whether it'll work without activating your venv.
+ # much like using the same python version you're using locally, it just seemed like a good idea.
+ # try testing without.
+ - ImageCropper/venv/bin/activate
  
 script: 
  - cd ImageCropper
  - cat comvo_1.h5.part* > comvo_1.h5
- - py.test --cov=ImageCropper test_image.py/
+ - py.test --cov=ImageCropper test_image.py
  
 after_success: coveralls
