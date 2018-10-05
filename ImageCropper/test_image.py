@@ -71,3 +71,13 @@ def test_11():                        #Does intersect
 	q1=[3,2]
 	q2=[3,100]
 	assert IA.doesItIntersect(p1,q1,p2,q2) == True
+
+#Test for classify()
+
+def test_12():
+	polygon = [[25, 50], [100, 50], [100, 100], [50, 100]] 
+	SortedPolygon = IA.polySort(polygon)
+	snapshotname = 'snapshot.jpeg'
+	croppedImage = IA.Crope(SortedPolygon, snapshotname)
+	isfull = IA.classify(croppedImage)	
+	assert isfull=='vacant' 
