@@ -102,6 +102,11 @@
         var m = confirm("Want to clear");
         if (m) {
             ctx.clearRect(0, 0, w, h);
+            imageObj = new Image();
+            imageObj.onload = function() {
+              ctx.drawImage(imageObj,0,0, canvas.width, canvas.height);
+            };
+            imageObj.src = '../images/2.jpg';
             document.getElementById("canvasimg").style.display = "none";
         }
     }
