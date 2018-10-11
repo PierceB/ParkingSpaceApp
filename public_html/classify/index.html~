@@ -48,9 +48,8 @@
           <ul class="nav navbar-nav">
             <li><a href="../dashboard/index.html">Dashboard</a></li>
             <li><a href="../parkingLots/index.html">Parking Lots</a></li>
-            <li><a href="../crop/index.html">Start Cropping</a></li>
-            <li><a href="../classify/index.html">Classify</a></li>
-            <li class="active"><a href="#">Register</a></li>
+            <li class="active"><a href="#">Start Cropping</a></li>
+            <li><a href="../register/index.html">Register</a></li>
           </ul>
         </div><!--/.nav-collapse -->
       </div>
@@ -58,34 +57,15 @@
 
     <div class="container">
 
-      <div class="form-signin">
-        <h2 class="form-signin-heading">Register a new Admin</h2>
-        <form name="register_form" role="form" method="post" action="">
-          <?php
-            include("../php/register.php");
-          ?>
-
-          <label for="inputUsername" class="sr-only">Username</label>
-          <input type="text" id="inputUsername" class="form-control" name="reg_username" placeholder="Username" required autofocus>
-
-          <label for="inputFirstName" class="sr-only">First Name</label>
-          <input type="text" id="inputFirstName" class="form-control" name="reg_fname" placeholder="First Name" required autofocus>
-
-          <label for="inputLastName" class="sr-only">Last Name</label>
-          <input type="text" id="inputLastName" class="form-control" name="reg_surname" placeholder="Last Name" required>
-
-          <label for="inputPassword" class="sr-only">Password</label>
-          <input type="password" id="inputPassword" class="form-control" name="reg_password" placeholder="Password" required>
-
-          <label for="inputConfirmPassword" class="sr-only">Confirm Password</label>
-          <input type="password" id="inputConfirmPassword" class="form-control" name="reg_confirm-password" placeholder="Confirm Password" required>
-
-          <label for="inputEmail" class="sr-only">Email address</label>
-          <input type="email" id="inputEmail" class="form-control" name="reg_email" placeholder="Email address" required autofocus>
-          <input type="submit" class="btn btn-lg btn-primary btn-block" name="register_submit" value="Register">
-        </form>
+      <div class="starter-template">
+        <div class="page-header">
+        	<h1>Crop Image</h1>
+      	</div>
+      <img data-src="holder.js/200x200" class="img-thumbnail" alt="image that has to be cropped comes here.">
+		<div>
+        <button type="button" class="btn btn-lg btn-primary">Crop Image</button>
+        </div>
       </div>
-
 
     </div><!-- /.container -->
 
