@@ -4,7 +4,7 @@ import cv2
 import numpy as np
 from keras.optimizers import SGD
 import os
-
+import mysql.connector
 
 def polySort(
         polygon):  # Pretty dirty method to make sure we don't get crossing lines, wont always work but will work for non extreme cases
@@ -193,7 +193,32 @@ def getPolygon(ParkingBayID):
     # Method to get coordinates from the database server
     # STILL TODO:
     # polygon= [4 coordinates]
-    polygon = [[25, 50], [100, 50], [100, 100], [50, 100]]
+    if(ParkingBayID =="-1"):         #Just for testing purposes
+        polygon = [[25, 50], [100, 50], [100, 100], [50, 100]]
+        return (polygon)
+
+    mydb=mysql.connector.connect(
+    	host = "localhost",
+	user = "connect",
+	passwd="connectpw",
+    database = "PARKINGAPPDB"
+    )
+    mycursor=mydb.cursor()
+    sql= "SELECT * FROM PARKING_SPACE WHERE PARK_ID = %s"
+    adr=(ParkingBayID, )
+
+    mycursor.execute(sql,adr)
+    mydb.close()
+
+    for x in mycursor:
+        x1=x[2].split(',')
+        x2=x[3].split(',')
+        x3=x[4].split(',')
+        x4=x[5].split(',')
+
+    polygon = [[int(x1[0]) ,int(x1[1])], [int(x2[0]) ,int(x2[1])],[int(x3[0]) ,int(x3[1])],[int(x4[0]) ,int(x4[1])]]
     return (polygon)
+
+
 
 
