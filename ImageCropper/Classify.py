@@ -7,8 +7,51 @@ from keras.optimizers import SGD
 import os
 import mysql.connector
 
+snapshotname = 'snapshot.jpeg'
 
-def classify(lot_ID):
+
+##################################################Classifier
+
+# !/usr/bin/env python2
+# -*- coding: utf-8 -*-
+"""
+Created on Sat Mar 10 00:25:14 2018
+
+@author: julien
+"""
+
+
+
+def classifier(image):                 #Actual classifier
+    # input image
+    #image = cv2.imread(image)
+    image_size = 100
+    model = auto_park_det_net((100, 100, 3))
+    model_name = 'comvo_1.h5'
+    model.load_weights(model_name)
+    # susbtract the dataset mean from each image
+    image2 = image - [128.0141111]
+
+    # hope you got this
+    image3 = cv2.resize(image2, (image_size, image_size))
+
+    # adding a new dimension to the image for the predict function that take an input of format (image_size,image_size,channel,number_of_images)
+    # in this instance, we only have one image per pass, since we are predicting
+    image3 = image3[np.newaxis, :, :, ]
+
+    sgd = SGD(lr=0.0001, momentum=0.9, nesterov=True)
+
+    model.compile(loss='categorical_crossentropy', optimizer=sgd, metrics=["accuracy"])
+
+    cnn_train = model.predict(image3)
+    # we chose the second index because it corresponds to how vacant the spot is.
+    if cnn_train[0][0] > 0.65:
+        return 'vacant'
+    else:
+        return 'occupied'
+
+
+def classify(lot_ID):           #Fetches and does all preoprocessing
 
     mydb=mysql.connector.connect(
    	    host = "localhost",
@@ -24,11 +67,10 @@ def classify(lot_ID):
     for bayID in myresult:
         polygon = IA.getPolygon(bayID[0])
         SortedPolygon = IA.polySort(polygon)
-        snapshotname = 'snapshot.jpeg'
         croppedImage = IA.Crope(SortedPolygon, snapshotname)
         #cv2.imwrite('ParkingBay2.jpeg', croppedImage)
 
-        isfull = IA.classify(croppedImage)
+        isfull = classifier(croppedImage)
 
         if (isfull == 'occupied'):
             val = "1"
