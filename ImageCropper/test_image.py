@@ -1,4 +1,5 @@
 import ImageCropper as IA
+import Classify as cl
 import pytest
 
 #Tests for isInside()
@@ -78,5 +79,5 @@ def test_12():
 	SortedPolygon = IA.polySort(polygon)
 	snapshotname = 'snapshot.jpeg'
 	croppedImage = IA.Crope(SortedPolygon, snapshotname)
-	isfull = IA.classify(croppedImage)	
+	isfull = cl.classifier(croppedImage)
 	assert isfull=='vacant' 
