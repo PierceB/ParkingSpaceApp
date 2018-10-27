@@ -85,5 +85,3 @@ def classify(lot_ID):           #Fetches and does all preoprocessing
         mydb.commit()
 
     mydb.close()
-
-classify("1")
