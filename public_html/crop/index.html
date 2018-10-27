@@ -1,3 +1,10 @@
+<?php
+    session_start();
+    if(!isset($_SESSION["login_user"])){
+        header("Location: ../index.html");
+        die();
+    }
+?>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -23,131 +30,8 @@
     <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
     <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
     <script src="../assets/js/ie-emulation-modes-warning.js"></script>
+    <script src="../dist/js/coordinates.js"></script>
     <script type="text/javascript">
-    var canvas, ctx, flag = false,
-        prevX = 0,
-        currX = 0,
-        prevY = 0,
-        currY = 0,
-        dot_flag = false;
-
-    var x = "black",
-        y = 2;
-
-    function init() {
-        canvas = document.getElementById('can');
-        ctx = canvas.getContext("2d");
-        imageObj = new Image();
-        imageObj.onload = function() {
-          ctx.drawImage(imageObj,0,0, canvas.width, canvas.height);
-        };
-        imageObj.src = '../images/2.jpg';
-        w = canvas.width;
-        h = canvas.height;
-
-        canvas.addEventListener("mousemove", function (e) {
-            findxy('move', e)
-        }, false);
-        canvas.addEventListener("mousedown", function (e) {
-            findxy('down', e)
-        }, false);
-        canvas.addEventListener("mouseup", function (e) {
-            findxy('up', e)
-        }, false);
-        canvas.addEventListener("mouseout", function (e) {
-            findxy('out', e)
-        }, false);
-    }
-
-    function color(obj) {
-        switch (obj.id) {
-            case "green":
-                x = "green";
-                break;
-            case "blue":
-                x = "blue";
-                break;
-            case "red":
-                x = "red";
-                break;
-            case "yellow":
-                x = "yellow";
-                break;
-            case "orange":
-                x = "orange";
-                break;
-            case "black":
-                x = "black";
-                break;
-            case "white":
-                x = "white";
-                break;
-        }
-        if (x == "white") y = 14;
-        else y = 2;
-
-    }
-
-    function draw() {
-        ctx.beginPath();
-        ctx.moveTo(prevX-250, prevY-50);
-        ctx.lineTo(currX-250, currY-50);
-        ctx.strokeStyle = x;
-        ctx.lineWidth = y;
-        ctx.stroke();
-        ctx.closePath();
-    }
-
-    function erase() {
-        var m = confirm("Want to clear");
-        if (m) {
-            ctx.clearRect(0, 0, w, h);
-            imageObj = new Image();
-            imageObj.onload = function() {
-              ctx.drawImage(imageObj,0,0, canvas.width, canvas.height);
-            };
-            imageObj.src = '../images/2.jpg';
-            document.getElementById("canvasimg").style.display = "none";
-        }
-    }
-
-    function save() {
-        document.getElementById("canvasimg").style.border = "2px solid";
-        var dataURL = canvas.toDataURL();
-        document.getElementById("canvasimg").src = dataURL;
-        document.getElementById("canvasimg").style.display = "inline";
-    }
-
-    function findxy(res, e) {
-        if (res == 'down') {
-            prevX = currX;
-            prevY = currY;
-            currX = e.clientX - canvas.offsetLeft;
-            currY = e.clientY - canvas.offsetTop;
-
-            flag = true;
-            dot_flag = true;
-            if (dot_flag) {
-                ctx.beginPath();
-                ctx.fillStyle = x;
-                ctx.fillRect(currX, currY, 2, 2);
-                ctx.closePath();
-                dot_flag = false;
-            }
-        }
-        if (res == 'up' || res == "out") {
-            flag = false;
-        }
-        if (res == 'move') {
-            if (flag) {
-                prevX = currX;
-                prevY = currY;
-                currX = e.clientX - canvas.offsetLeft;
-                currY = e.clientY - canvas.offsetTop;
-                draw();
-            }
-        }
-    }
     </script>
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
@@ -186,9 +70,9 @@
       <div class="row">
             <div class="col-sm-3 col-md-2 sidebar">
               <ul class="nav nav-sidebar">
-                <li class="active" ><a href="../crop/index.html">Parking Lot 1 <span class="sr-only">(current)</span></a></li>
-                <li ><a href="../crop/index.html">Parking Lot 2 <span class="sr-only">(current)</span></a></li>
-                <li ><a href="../crop/index.html">Parking Lot 3 <span class="sr-only">(current)</span></a></li>
+                <?php
+                  include("../php/croplotlist.php");
+                ?>
               </ul>
             </div>
             <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
@@ -199,8 +83,21 @@
         <canvas id="can" width="300" height="300" style="position:absolute;top:70%;left:10%;border:2px solid;"></canvas>
         <div style="position:absolute;top:55%;left:35%;"> Choose parts of the image that you want select.</div>
         <img id="canvasimg" style="position:absolute;top:70%;left:50%;" style="display:none;">
+        <div class="form-group">
+          <form class="" method="post" action="" style="position: absolute;top: 70%;left: 50%" role="form">
+            <?php
+              include("../php/crop.php");
+              echo $message;
+            ?>
+            <input type="text" name="coord1" class="form-control form-group" id="coord1">
+            <input type="text" name="coord2" class="form-control form-group" id="coord2">
+            <input type="text" name="coord3" class="form-control form-group" id="coord3">
+            <input type="text" name="coord4" class="form-control form-group" id="coord4">
+            <input type="submit" class="btn btn-lg btn-primary" value="submit coordinates" id="submit" name="coordinates">
+          </form>
+        </div>
         <input type="button" class="btn btn-lg btn-primary" value="save" id="btn" size="30" onclick="save()" style="position:absolute;top:215%;left:25%;">
-        <input type="button" class="btn btn-lg btn-primary" value="clear" id="clr" size="23" onclick="erase()" style="position:absolute;top:215%;left:33%;">
+        <input type="button" class="btn btn-lg btn-primary" value="clear" id="clr" size="23" onclick="clear()" style="position:absolute;top:215%;left:33%;">
       </div>
     </div>
     </div>
@@ -215,5 +112,7 @@
     <script src="../dist/js/bootstrap.min.js"></script>
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
     <script src="../assets/js/ie10-viewport-bug-workaround.js"></script>
+    <script src="../dist/js/jquery-3.3.1.js"></script>
+    <script src="../dist/js/coordinates.js"></script>
   </body>
 </html>
