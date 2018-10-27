@@ -1,3 +1,11 @@
+<?php
+include("../php/config.php");
+session_start();
+if(!isset($_SESSION["login_user"])){
+    header("Location: ../index.html");
+    die();
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -60,15 +68,16 @@
       <div class="row">
             <div class="col-sm-3 col-md-2 sidebar">
               <ul class="nav nav-sidebar">
-                <li ><a href="../crop/index.html">Parking Lot 1 <span class="sr-only">(current)</span></a></li>
-                <li ><a href="../crop/index.html">Parking Lot 2 <span class="sr-only">(current)</span></a></li>
-                <li ><a href="../crop/index.html">Parking Lot 3 <span class="sr-only">(current)</span></a></li>
+                <?php
+                    include("../php/parkinglotlist.php");
+                ?>
               </ul>
             </div>
             <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
       <div class="starter-template">
-        <h1>Parking lots</h1>
-      <p class="lead">Please pick any of the parking lots on the sidebar to the right.</p>
+        <?php
+          include("../php/getparkinglot.php");
+        ?>
     </div>
     </div>
     </div><!-- /.container -->
