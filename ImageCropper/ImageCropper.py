@@ -27,11 +27,17 @@ def polySort(
 
     x3 = polygon[0]
     x4 = polygon[1]
+    if (x3[1]!=x4[1]):
+        if (x3[1]) < (x4[1]):
+            newpoly = [x1, x2, x4, x3]
+        else:
+            newpoly = [x1, x2, x3, x4]
 
-    if ((x3[0] + x3[1]) < (x4[0] + x4[1])):
-        newpoly = [x1, x2, x4, x3]
     else:
-        newpoly = [x1, x2, x3, x4]
+        if (x3[0]) < (x4[0]):
+            newpoly = [x1, x2, x4, x3]
+        else:
+            newpoly = [x1, x2, x3, x4]
 
     return (newpoly)
 
