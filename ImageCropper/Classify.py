@@ -22,13 +22,15 @@ Created on Sat Mar 10 00:25:14 2018
 
 
 
-def classifier(image):                 #Actual classifier
+def classifier(image,model):                 #Actual classifier
     # input image
     #image = cv2.imread(image)
     image_size = 100
-    model = auto_park_det_net((100, 100, 3))
-    model_name = 'comvo_1.h5'
-    model.load_weights(model_name)
+
+    #model = auto_park_det_net((100, 100, 3))           #Just moved this into the classify method so it doesn't have to reload the model everytime
+    #model_name = 'comvo_1.h5'
+    #model.load_weights(model_name)
+
     # susbtract the dataset mean from each image
     image2 = image - [128.0141111]
 
@@ -53,6 +55,10 @@ def classifier(image):                 #Actual classifier
 
 def classify(lot_ID):           #Fetches and does all preoprocessing
 
+    model = auto_park_det_net((100, 100, 3))
+    model_name = 'comvo_1.h5'
+    model.load_weights(model_name)
+
     mydb=mysql.connector.connect(
    	    host = "localhost",
 	    user = "connect",
@@ -70,7 +76,7 @@ def classify(lot_ID):           #Fetches and does all preoprocessing
         croppedImage = IA.Crope(SortedPolygon, snapshotname)
         #cv2.imwrite('ParkingBay2.jpeg', croppedImage)
 
-        isfull = classifier(croppedImage)
+        isfull = classifier(croppedImage, model)
 
         if (isfull == 'occupied'):
             val = "1"

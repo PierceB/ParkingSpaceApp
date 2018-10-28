@@ -1,5 +1,9 @@
 import ImageCropper as IA
 import Classify as cl
+from Networks.Auto_Park_Space_network_vgg_16 import auto_park_det_net
+import cv2
+import numpy as np
+from keras.optimizers import SGD
 import pytest
 
 #Tests for isInside()
@@ -79,5 +83,8 @@ def test_12():
 	SortedPolygon = IA.polySort(polygon)
 	snapshotname = 'snapshot.jpeg'
 	croppedImage = IA.Crope(SortedPolygon, snapshotname)
-	isfull = cl.classifier(croppedImage)
+	model = auto_park_det_net((100, 100, 3))
+	model_name = 'comvo_1.h5'
+	model.load_weights(model_name)
+	isfull = cl.classifier(croppedImage, model)
 	assert isfull=='vacant' 
