@@ -17,6 +17,7 @@ before_install:
 script: 
  - cd ImageCropper
  - cat comvo_1.h5.part* > comvo_1.h5
- - py.test --cov=ImageCropper test_image.py/
+ - pytest --cov test_image.py
+ #- py.test --cov=ImageCropper test_image.py/
  
 after_success: coveralls
