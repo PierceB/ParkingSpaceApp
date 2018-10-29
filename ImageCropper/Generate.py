@@ -4,15 +4,15 @@ import mysql.connector
 import cv2
 import os
 import datetime
+import Details as D
 
-snapshotname = 'snapshot.jpeg'
 
 LotID = sys.argv[1]
 mydb=mysql.connector.connect(
-   	    host = "localhost",
-	    user = "connect",
-	    passwd="connectpw",
-        database = "PARKINGAPPDB"
+   	    host = D.hostn,
+	    user = D.usern,
+	    passwd=D.passw,
+        database = D.dbname
     )
 mycur=mydb.cursor()
 sql = "SELECT PARK_ID FROM PARKING_SPACE WHERE LOT_ID = %s"
@@ -27,6 +27,6 @@ os.makedirs(dirname)
 for bayID in myresult:
     polygon = IA.getPolygon(bayID[0])
     SortedPolygon = IA.polySort(polygon)
-    croppedImage = IA.Crope(SortedPolygon, snapshotname)
+    croppedImage = IA.Crope(SortedPolygon, D.snapshot)
     Bayname = dirname + '/ParkingBay' + bayID[0] + ".jpeg"
     cv2.imwrite(Bayname, croppedImage)

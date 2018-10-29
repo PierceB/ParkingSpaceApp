@@ -5,6 +5,7 @@ import numpy as np
 #from keras.optimizers import SGD
 import os
 import mysql.connector
+import Details as D
 
 def polySort(
         polygon):  # Pretty dirty method to make sure we don't get crossing lines, wont always work but will work for non extreme cases
@@ -163,10 +164,10 @@ def getPolygon(ParkingBayID):
         return (polygon)
 
     mydb=mysql.connector.connect(
-    	host = "localhost",
-	user = "connect",
-	passwd="connectpw",
-    database = "PARKINGAPPDB"
+    	host = D.hostn,
+	user = D.usern,
+	passwd=D.passw,
+    database = D.dbname
     )
     mycursor=mydb.cursor()
     sql= "SELECT * FROM PARKING_SPACE WHERE PARK_ID = %s"

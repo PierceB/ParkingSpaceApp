@@ -1,13 +1,14 @@
 import Classify as cl
 import sys
 import mysql.connector
+import Details as D
 
 if len(sys.argv) == 1:
     mydb = mysql.connector.connect(
-        host="localhost",
-        user="connect",
-        passwd="connectpw",
-        database="PARKINGAPPDB"
+        host=D.hostn,
+        user=D.usern,
+        passwd=D.passw,
+        database=D.dbname
     )
     mycur = mydb.cursor()
     sql = "SELECT LOT_ID FROM PARKING_LOTS"
