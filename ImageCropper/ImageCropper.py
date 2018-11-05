@@ -182,7 +182,7 @@ def getPolygon(ParkingBayID):
         x3=x[4].split(',')
         x4=x[5].split(',')
 
-    polygon = [[int(x1[0]) ,int(x1[1])], [int(x2[0]) ,int(x2[1])],[int(x3[0]) ,int(x3[1])],[int(x4[0]) ,int(x4[1])]]
+    polygon = [[int(round(float(x1[0]))) ,int(round(float(x1[1])))], [int(round(float(x2[0]))) ,int(round(float(x2[1])))],[int(round(float(x3[0]))) ,int(round(float(x3[1])))],[int(round(float(x4[0]))) ,int(round(float(x4[1])))]]
     return (polygon)
 
 
