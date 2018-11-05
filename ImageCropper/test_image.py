@@ -1,6 +1,11 @@
 import ImageCropper as IA
 import Classify as cl
+from Networks.Auto_Park_Space_network_vgg_16 import auto_park_det_net
+import cv2
+import numpy as np
+from keras.optimizers import SGD
 import pytest
+import Details as D
 
 #Tests for isInside()
 def test_1():               #Check isInside for true case
@@ -77,7 +82,9 @@ def test_11():                        #Does intersect
 def test_12():
 	polygon = [[25, 50], [100, 50], [100, 100], [50, 100]] 
 	SortedPolygon = IA.polySort(polygon)
-	snapshotname = 'snapshot.jpeg'
-	croppedImage = IA.Crope(SortedPolygon, snapshotname)
-	isfull = cl.classifier(croppedImage)
+	croppedImage = IA.Crope(SortedPolygon, D.snapshot)
+	model = auto_park_det_net((100, 100, 3))
+	model_name = 'comvo_1.h5'
+	model.load_weights(model_name)
+	isfull = cl.classifier(croppedImage, model)
 	assert isfull=='vacant' 
