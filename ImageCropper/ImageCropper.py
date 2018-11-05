@@ -122,22 +122,25 @@ def Crope(polygon, snapshotname):
     minY = float('inf')
     maxY = -1
 
+    ImageMatrix = cv2.imread(snapshotname)  # Input the pictures name to whatever is decided to be called
+    cropedImage = np.zeros_like(ImageMatrix)
+    height, width=cropedImage.shape[:2]
     for point in polygon:  # Cycle through the points give to find the smallest/largest to use as boundries
 
         x = point[0]
         y = point[1]
 
-        if x < minX:
+
+        if x < minX and x>=0:
             minX = x
-        if x > maxX:
+        if x > maxX and x<width:
             maxX = x
-        if y < minY:
+        if y < minY and y>=0:
             minY = y
-        if y > maxY:
+        if y > maxY and y < height:
             maxY = y
 
-    ImageMatrix = cv2.imread(snapshotname)  # Input the pictures name to whatever is decided to be called
-    cropedImage = np.zeros_like(ImageMatrix)
+
 
     for x in range(minX, maxX):
         for y in range(minY, maxY):
