@@ -22,5 +22,20 @@ Again these will work off of snapshot.jpeg. So until we know how the classifier 
 
 Note: for update to run make sure you have combined the comvo_1.h5 file.
 
+The ImageScale.py script has 2 functions in it:
+strong_imageScale(image, width,shouldPrint)
+  image is the image being loaded into a cv2 matrix
+  width is the width that you want the resized image to be
+  Set shouldPrint=1 if you want it to save the resized image
+  
+
+weak_imageScale(image, width,height, shouldPrint)
+  image is the image being loaded into a cv2 matrix
+  width is the width that you want the resized image to be
+  height is the height you want the resized image to be
+  Set shouldPrint=1 if you want it to save the resized image
+
+The strong_imageScale will maintain the original pictures aspect ratio, while the weak_imageScale function will just set the width and height to the values its given, completely ignoring the aspect ratio.
+
 This can be done with the terminal command:
 cat comvo_1.h5.part* > comvo_1.h5
