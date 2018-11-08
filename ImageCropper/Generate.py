@@ -27,7 +27,7 @@ dirname = "ParkingBays_" + '{date:%Y-%m-%d %H:%M:%S}'.format(date=datetime.datet
 #dirname = sys.argv[2]
 path_name = os.getcwd()
 
-os.chmod(path_name,0o777)
+#os.chmod(/home/dione/ParkingSpaceAppImageCropper,0o777)
 os.makedirs(dirname)
 
 
