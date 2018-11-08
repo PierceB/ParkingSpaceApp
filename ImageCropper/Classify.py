@@ -80,14 +80,16 @@ def classify(lot_ID):           #Fetches and does all preoprocessing
 
         if (isfull == 'occupied'):
             val = "1"
+            sql = "UPDATE PARKING_SPACE SET PARK_IS_OPEN = '1' WHERE PARK_ID = %s"
             # Push val to database for parkingspot
         else:
             val = "0"
+            sql = "UPDATE PARKING_SPACE SET PARK_IS_OPEN ='0' WHERE PARK_ID = %s"
             # Pus val to database for parkingspot
 
-        sql = "UPDATE PARKING_SPACE SET PARK_IS_OPEN = " + val + " WHERE PARK_ID = " + bayID[0]
+        #sql = "UPDATE PARKING_SPACE SET PARK_IS_OPEN = " + val + " WHERE PARK_ID = " + bayID[0]
 
-        mycur.execute(sql)
+        mycur.execute(sql,bayID)
         mydb.commit()
 
     mydb.close()
