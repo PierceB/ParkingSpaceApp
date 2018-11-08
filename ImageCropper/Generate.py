@@ -22,8 +22,12 @@ lot=(LotID, )
 mycur.execute(sql, lot)
 myresult = mycur.fetchall()
 
+
 dirname = "ParkingBays_" + '{date:%Y-%m-%d %H:%M:%S}'.format(date=datetime.datetime.now())
 #dirname = sys.argv[2]
+path_name = os.getcwd()
+
+os.chmod(path_name,0o777)
 os.makedirs(dirname)
 
 
