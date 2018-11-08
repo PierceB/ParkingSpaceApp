@@ -18,5 +18,5 @@ if len(sys.argv) == 1:
         cl.classify(x[0])
 else:
     for x in sys.argv:
-        if x!= "Update.py":
+        if x != "Update.py":
             cl.classify(x)

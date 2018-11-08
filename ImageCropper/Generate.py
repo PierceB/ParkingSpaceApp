@@ -5,7 +5,9 @@ import cv2
 import os
 import datetime
 import Details as D
+import shutil
 
+#generates cropped images from the current image
 
 LotID = sys.argv[1]
 mydb=mysql.connector.connect(
@@ -21,6 +23,7 @@ mycur.execute(sql, lot)
 myresult = mycur.fetchall()
 
 dirname = "ParkingBays_" + '{date:%Y-%m-%d %H:%M:%S}'.format(date=datetime.datetime.now())
+#dirname = sys.argv[2]
 os.makedirs(dirname)
 
 
@@ -30,3 +33,6 @@ for bayID in myresult:
     croppedImage = IA.Crope(SortedPolygon, D.snapshot)
     Bayname = dirname + '/ParkingBay' + bayID[0] + ".jpeg"
     cv2.imwrite(Bayname, croppedImage)
+
+shutil.make_archive(sys.argv[2], 'zip', dirname)
+shutil.rmtree(dirname)
