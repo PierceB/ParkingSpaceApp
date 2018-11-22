@@ -4,6 +4,7 @@
         header("Location: ../index.html");
         die();
     }
+    include("../php/crop.php");
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -61,6 +62,7 @@
             <li class="active"><a href="#">Start Cropping</a></li>
             <li><a href="../classify/index.html">Classify</a></li>
             <li><a href="../register/index.html">Register</a></li>
+            <li><a href="../php/logout.php">Logout</a></li>
           </ul>
         </div><!--/.nav-collapse -->
       </div>
@@ -80,24 +82,34 @@
         <div class="page-header">
         	<h1>Crop Image</h1>
       	</div>
-        <canvas id="can" width="300" height="300" style="position:absolute;top:70%;left:10%;border:2px solid;"></canvas>
+        <canvas id="can" width="600" height="450" style="position:absolute;top:70%;left:10%; z-index: 2;"></canvas>
         <div style="position:absolute;top:55%;left:35%;"> Choose parts of the image that you want select.</div>
-        <img id="canvasimg" style="position:absolute;top:70%;left:50%;" style="display:none;">
+        <img id="canvasimg" width="600" height="450" style="position:absolute;top:70%;left:10%;" style="display: none" src="">
+
         <div class="form-group">
-          <form class="" method="post" action="" style="position: absolute;top: 70%;left: 50%" role="form">
+          <form class="" method="post" action="" style="position: absolute;top: 70%;left: 85%" role="form">
             <?php
-              include("../php/crop.php");
               echo $message;
             ?>
+            <select id="parkingspace" name="parkingspace" class="form-control form-group">
+              <option value="new">New Parking Space</option>
+              <?php
+                include("../php/parkingspacelist.php");
+              ?>
+            </select>
             <input type="text" name="coord1" class="form-control form-group" id="coord1">
             <input type="text" name="coord2" class="form-control form-group" id="coord2">
             <input type="text" name="coord3" class="form-control form-group" id="coord3">
             <input type="text" name="coord4" class="form-control form-group" id="coord4">
-            <input type="submit" class="btn btn-lg btn-primary" value="submit coordinates" id="submit" name="coordinates">
+            <input type="submit" class="btn btn-lg btn-primary" value="Submit Coordinates" id="submit" name="coordinates" style="width: 100%;">
+            <input type="button" class="btn btn-lg btn-primary" value="Clear" id="clr" size="23" onclick="clear()" style="margin-top: 10px; width: 100%;">
+            <input type="submit" class="btn btn-lg btn-primary" value="Generate Images" id="generate" name="generate" style="margin-top: 10px; margin-bottom: 10px; width: 100%;">
+            <p><?php
+              echo $filenametag;
+              echo $outputtag;
+            ?></p>
           </form>
         </div>
-        <input type="button" class="btn btn-lg btn-primary" value="save" id="btn" size="30" onclick="save()" style="position:absolute;top:215%;left:25%;">
-        <input type="button" class="btn btn-lg btn-primary" value="clear" id="clr" size="23" onclick="clear()" style="position:absolute;top:215%;left:33%;">
       </div>
     </div>
     </div>
@@ -114,5 +126,6 @@
     <script src="../assets/js/ie10-viewport-bug-workaround.js"></script>
     <script src="../dist/js/jquery-3.3.1.js"></script>
     <script src="../dist/js/coordinates.js"></script>
+    <script src="../dist/js/draw.js"></script>
   </body>
 </html>

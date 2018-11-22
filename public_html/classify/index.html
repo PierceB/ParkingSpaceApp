@@ -4,6 +4,7 @@
         header("Location: ../index.html");
         die();
     }
+    include("../php/classify.php");
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -59,6 +60,7 @@
             <li><a href="../crop/index.html">Start Cropping</a></li>
             <li class="active"><a href="../classify/index.html">Classify</a></li>
             <li><a href="../register/index.html">Register</a></li>
+            <li><a href="../php/logout.php">Logout</a></li>
           </ul>
         </div><!--/.nav-collapse -->
       </div>
@@ -78,12 +80,22 @@
         <div class="page-header">
         	<h1>Crop Image</h1>
       	</div>
-        <canvas id="can" width="300" height="300" style="position:absolute;top:70%;left:10%;border:2px solid;"></canvas>
+        <canvas id="can" width="600" height="450" style="position:absolute;top:70%;left:10%;border:2px solid;"></canvas>
         <div style="position:absolute;top:55%;left:35%;"> Classify image accordingly.</div>
         <img id="canvasimg" style="position:absolute;top:70%;left:50%;" style="display:none;">
-        <input type="button" class="btn btn-lg btn-primary" value="classify" id="btn" size="30" style="position:absolute;top:215%;left:15%;">
-        <input type="button" class="btn btn-lg btn-primary" value="save" id="btn" size="30" onclick="save()" style="position:absolute;top:215%;left:25%;">
-        <input type="button" class="btn btn-lg btn-primary" value="clear" id="clr" size="23" onclick="erase()" style="position:absolute;top:215%;left:33%;">
+        <form method="post" style="position: absolute;top: 70%;left: 85%" role="form">
+          <select name="parkingspace" class="form-group form-control">
+            <?php
+              include("../php/parkingspacelist.php");
+            ?>
+          </select>
+          <input type="text" name="open" class="form-control form-group">
+          <input type="submit" class="btn btn-lg btn-primary" name="classifybay" value="Classify Bay" style="margin-bottom: 10px; width: 100%">
+          <input type="submit" class="btn btn-lg btn-primary" name="update" value="Update Lot" style="margin-bottom: 10px; width: 100%;">
+          <p><?php
+            echo $outputtag;
+          ?></p>
+        </form>
       </div>
     </div>
     </div>
