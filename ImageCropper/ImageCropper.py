@@ -153,8 +153,8 @@ def Crope(polygon, snapshotname):
                 cropedImage[x, y, 0] = ImageMatrix[x, y, 0]
                 cropedImage[x, y, 1] = ImageMatrix[x, y, 1]
                 cropedImage[x, y, 2] = ImageMatrix[x, y, 2]
-
-    return (cropedImage)
+    ScaledCroppedImage = cropedImage[minX:maxX, minY:maxY]
+    return (ScaledCroppedImage)
     # cv2.imwrite('ParkingBay2.jpeg',cropedImage) #Use if you want to draw image
 
 

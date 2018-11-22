@@ -25,7 +25,7 @@ myresult = mycur.fetchall()
 
 dirname = "ParkingBays_" + '{date:%Y-%m-%d %H:%M:%S}'.format(date=datetime.datetime.now())
 #dirname = sys.argv[2]
-path_name = os.getcwd()
+#path_name = os.getcwd()
 
 #os.chmod(/home/dione/ParkingSpaceAppImageCropper,0o777)
 os.makedirs(dirname)

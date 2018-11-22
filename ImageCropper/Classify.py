@@ -56,7 +56,7 @@ def classifier(image,model):                 #Actual classifier
 def classify(lot_ID):           #Fetches and does all preoprocessing
 
     model = auto_park_det_net((100, 100, 3))
-    model_name = 'comvo_1.h5'
+    model_name = D.comvo
     model.load_weights(model_name)
 
     mydb=mysql.connector.connect(
