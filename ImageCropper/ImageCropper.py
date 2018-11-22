@@ -1,3 +1,4 @@
+
 import math
 #from Networks.Auto_Park_Space_network_vgg_16 import auto_park_det_net
 import cv2
@@ -6,6 +7,7 @@ import numpy as np
 import os
 import mysql.connector
 import Details as D
+
 
 def polySort(
         polygon):  # Pretty dirty method to make sure we don't get crossing lines, wont always work but will work for non extreme cases
@@ -41,8 +43,6 @@ def polySort(
             newpoly = [x1, x2, x3, x4]
 
     return (newpoly)
-
-
 ############################################Cropper helper methods
 
 def onSegment(p, q, r):  # Given three colinear points, check if Q lies on the line pr
@@ -114,6 +114,14 @@ def isInside(polygon, p):
 
     return (False)
 
+def warpCrop(polygon, snapshotname):  #Crops the image by using a warp transformation, ie makes it a rectangle
+    dst = np.array([[0,100],[100,100],[100,0],[0,0]],np.float32)
+    pathname=os.getcwd()
+    imageName=os.path.join(pathname,"WitsImages",snapshotname)
+    imageMatrix = cv2.imread(imageName)
+    warpPerspect = cv2.getPerspectiveTransform(np.array(polygon,np.float32),dst)
+    warpCroppedImage = cv2.warpPerspective(imageMatrix, warpPerspect,dsize =(100,100))
+    return(warpCroppedImage)
 
 #########################################Cropper
 def Crope(polygon, snapshotname):
@@ -121,8 +129,10 @@ def Crope(polygon, snapshotname):
     maxX = -1
     minY = float('inf')
     maxY = -1
-
-    ImageMatrix = cv2.imread(snapshotname)  # Input the pictures name to whatever is decided to be called
+    pathname=os.getcwd()
+    imageName=os.path.join(pathname,"WitsImages",snapshotname) #"wits_msl01.png")
+    ImageMatrix = cv2.imread(imageName)  # Input the pictures name to whatever is decided to be called
+    ImageMatrix = cv2.resize(ImageMatrix,(650,450))
     cropedImage = np.zeros_like(ImageMatrix)
     height, width=cropedImage.shape[:2]
     for point in polygon:  # Cycle through the points give to find the smallest/largest to use as boundries
@@ -131,15 +141,14 @@ def Crope(polygon, snapshotname):
         y = point[1]
 
 
-        if x < minX and x>=0:
+        if x < minX:
             minX = x
-        if x > maxX and x<width:
+        if x > maxX:
             maxX = x
-        if y < minY and y>=0:
+        if y < minY:
             minY = y
-        if y > maxY and y < height:
+        if y > maxY:
             maxY = y
-
 
 
     for x in range(minX, maxX):
@@ -185,9 +194,5 @@ def getPolygon(ParkingBayID):
         x3=x[4].split(',')
         x4=x[5].split(',')
 
-    polygon = [[int(round(float(x1[0]))) ,int(round(float(x1[1])))], [int(round(float(x2[0]))) ,int(round(float(x2[1])))],[int(round(float(x3[0]))) ,int(round(float(x3[1])))],[int(round(float(x4[0]))) ,int(round(float(x4[1])))]]
+    polygon = [[int(round(float(x1[1]))) ,int(round(float(x1[0])))], [int(round(float(x2[1]))) ,int(round(float(x2[0])))],[int(round(float(x3[1]))) ,int(round(float(x3[0])))],[int(round(float(x4[1]))) ,int(round(float(x4[0])))]]
     return (polygon)
-
-
-
-

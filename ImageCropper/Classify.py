@@ -33,7 +33,6 @@ def classifier(image,model):                 #Actual classifier
 
     # susbtract the dataset mean from each image
     image2 = image - [128.0141111]
-
     # hope you got this
     image3 = cv2.resize(image2, (image_size, image_size))
 
@@ -54,7 +53,7 @@ def classifier(image,model):                 #Actual classifier
 
 
 def classify(lot_ID):           #Fetches and does all preoprocessing
-
+    bayImage=lot_ID + ".png"
     model = auto_park_det_net((100, 100, 3))
     model_name = D.comvo
     model.load_weights(model_name)
@@ -73,9 +72,9 @@ def classify(lot_ID):           #Fetches and does all preoprocessing
     for bayID in myresult:
         polygon = IA.getPolygon(bayID[0])
         SortedPolygon = IA.polySort(polygon)
-        croppedImage = IA.Crope(SortedPolygon, D.snapshot)
+        #croppedImage = IA.Crope(SortedPolygon, bayImage)
+        croppedImage = IA.warpCrop(SortedPolygon,bayImage)
         #cv2.imwrite('ParkingBay2.jpeg', croppedImage)
-
         isfull = classifier(croppedImage, model)
 
         if (isfull == 'occupied'):

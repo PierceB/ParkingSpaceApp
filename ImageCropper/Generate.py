@@ -21,8 +21,8 @@ sql = "SELECT PARK_ID FROM PARKING_SPACE WHERE LOT_ID = %s"
 lot=(LotID, )
 mycur.execute(sql, lot)
 myresult = mycur.fetchall()
-
-
+#pathname=os.getcwd()
+#dirname = os.path.join(pathname,"/ParkingBays_" + '{date:%Y-%m-%d %H:%M:%S}'.format(date=datetime.datetime.now()))
 dirname = "ParkingBays_" + '{date:%Y-%m-%d %H:%M:%S}'.format(date=datetime.datetime.now())
 #dirname = sys.argv[2]
 #path_name = os.getcwd()
@@ -32,9 +32,13 @@ os.makedirs(dirname)
 
 
 for bayID in myresult:
+    bayImage =  LotID + ".png"
     polygon = IA.getPolygon(bayID[0])
     SortedPolygon = IA.polySort(polygon)
-    croppedImage = IA.Crope(SortedPolygon, D.snapshot)
+    #croppedImage = IA.Crope(SortedPolygon, bayImage)
+    croppedImage  = IA.warpCrop(SortedPolygon,bayImage)
+    if(croppedImage.any == None):
+        continue
     Bayname = dirname + '/ParkingBay' + bayID[0] + ".jpeg"
     cv2.imwrite(Bayname, croppedImage)
 
