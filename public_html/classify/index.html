@@ -80,11 +80,14 @@
         <div class="page-header">
         	<h1>Crop Image</h1>
       	</div>
-        <canvas id="can" width="600" height="450" style="position:absolute;top:70%;left:10%;border:2px solid;"></canvas>
-        <div style="position:absolute;top:55%;left:35%;"> Classify image accordingly.</div>
+        <canvas id="can" width="600" height="450" style="position:absolute;top:70%;left:10%;border:2px solid;z-index: 2;"></canvas>
+        <div style="position:absolute;top:55%;left:35%;"> Classify image accordingly. If the parking bay is taken, enter '0' in the text field or else enter '1' in the text field then click 'Classify Bay'. To run the classifier, click 'Update Lot'.</div>
         <img id="canvasimg" style="position:absolute;top:70%;left:50%;" style="display:none;">
         <form method="post" style="position: absolute;top: 70%;left: 85%" role="form">
-          <select name="parkingspace" class="form-group form-control">
+          <p><?php
+              echo $message;
+          ?></p>
+          <select id="parkingspace" name="parkingspace" class="form-group form-control">
             <?php
               include("../php/parkingspacelist.php");
             ?>
@@ -110,5 +113,6 @@
     <script src="../dist/js/bootstrap.min.js"></script>
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
     <script src="../assets/js/ie10-viewport-bug-workaround.js"></script>
+    <script type="text/javascript" src="../dist/js/classify.js"></script>
   </body>
 </html>
