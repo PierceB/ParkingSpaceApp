@@ -129,8 +129,11 @@ def Crope(polygon, snapshotname):
     maxX = -1
     minY = float('inf')
     maxY = -1
+
     pathname=os.getcwd()
-    imageName=os.path.join(pathname,"WitsImages",snapshotname) #"wits_msl01.png")
+    imageName=os.path.join(pathname,"WitsImages",snapshotname)
+    imageName = "snapshot.jpeg"          #Purely for testing, in deployment comment this line out
+
     ImageMatrix = cv2.imread(imageName)  # Input the pictures name to whatever is decided to be called
     ImageMatrix = cv2.resize(ImageMatrix,(650,450))
     cropedImage = np.zeros_like(ImageMatrix)
