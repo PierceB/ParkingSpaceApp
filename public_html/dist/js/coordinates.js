@@ -2,8 +2,29 @@ var context = null;
 var w, h, img;
 var lineWidth = 2;
 var color = 'red';
+var imagePath = '';
 
 $(document).ready(function () {
+    var urlParams = new URLSearchParams(window.location.search);
+    var current = urlParams.get('current');
+    $.ajax({
+        url: 'http://dione.ms.wits.ac.za/php/getimagepath.php',
+        type: 'GET',
+        dataType: 'html',
+        data:{
+            'parkinglot': current
+        },
+        success:function (data) {
+            if (data == 'No Images'){
+                alert('No images found for this parking lot');
+            } else {
+                imagePath = '../../php/WitsImages/' + data;
+                init(imagePath);
+            }
+
+        }
+    });
+
     $("#parkingspace").change(function (event) {
         clear();
         var coordinates = null;
@@ -62,15 +83,16 @@ $(document).ready(function () {
     });
 });
 
-function init() {
+function init(image) {
     context = $('#can')[0].getContext('2d');
     img = new Image();
     img.onload = function () {
         context.drawImage(img,0,0, $('#can')[0].width, $('#can')[0].height);
     };
-    img.src = '../../images/wits_msl/02.png';
+    img.src = image;
     w = $('#can')[0].width;
     h = $('#can')[0].height;
+    imagePath = image;
 }
 
 function erase() {
@@ -81,7 +103,7 @@ function erase() {
         img.onload = function() {
             context.drawImage(img,0,0, w, h);
         };
-        img.src = '../../images/wits_msl/02.png';
+        img.src = imagePath;
     }
 }
 
@@ -91,12 +113,12 @@ function clear() {
     img.onload = function() {
         context.drawImage(img,0,0, w, h);
     };
-    img.src = '../../images/wits_msl/02.png';
+    img.src = imagePath;
 }
 
 function drawDot(x, y) {
     context = $('#can')[0].getContext('2d');
-    context.fillStyle = 'red';
+    context.fillStyle = color;
     context.beginPath();
     context.arc(x, y, 2, 0, 2*Math.PI);
     context.fill();
@@ -108,7 +130,7 @@ function drawLine(point1, point2) {
     context.beginPath();
     context.moveTo(point1[0], point1[1]);
     context.lineTo(point2[0], point2[1]);
-    context.fillStyle = 'red';
+    context.strokeStyle = color;
     context.lineWidth = lineWidth;
     context.stroke();
     context.closePath();
