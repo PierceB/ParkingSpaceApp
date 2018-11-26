@@ -1,1 +1,130 @@
+<?php
+    session_start();
+    if(!isset($_SESSION["login_user"])){
+        header("Location: ../index.html");
+        die();
+    }
+    include("../php/calibrate.php");
+?>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="../../favicon.ico">
 
+    <title>Parking Space App</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="../dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <link href="../assets/css/ie10-viewport-bug-workaround.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="starter-template.css" rel="stylesheet">
+
+    <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
+    <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
+    <script src="../assets/js/ie-emulation-modes-warning.js"></script>
+    <script src="../dist/js/coordinates.js"></script>
+    <script type="text/javascript">
+    </script>
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  </head>
+
+  <body>
+
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="../dashboard/index.html">Parking Space App</a>
+        </div>
+        <div id="navbar" class="collapse navbar-collapse">
+          <ul class="nav navbar-nav">
+            <li><a href="../dashboard/index.html">Dashboard</a></li>
+            <li><a href="../parkingLots/index.html">Parking Lots</a></li>
+            <li><a href="../crop/index.html">Start Cropping</a></li>
+            <li><a href="../classify/index.html">Classify</a></li>
+            <li class="active"><a href="#">Calibrate</a></li>
+            <li><a href="../register/index.html">Register</a></li>
+            <li><a href="../php/logout.php">Logout</a></li>
+          </ul>
+        </div><!--/.nav-collapse -->
+      </div>
+    </nav>
+
+    <div class="container">
+      <div class="row">
+            <div class="col-sm-3 col-md-2 sidebar">
+              <ul class="nav nav-sidebar">
+                <?php
+                  include("../php/calibratelotlist.php");
+                ?>
+              </ul>
+            </div>
+            <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+      <div class="starter-template">
+        <div class="page-header">
+        	<h1>Calibrate Parking Lot</h1>
+      	</div>
+        <canvas id="cantop" width="600" height="450" style="position:absolute;top:70%;left:10%; z-index: 2;"></canvas>
+        <canvas id="can" width="600" height="450" style="position: absolute; top: 280%; left: 10%; z-index: 2;"></canvas>
+        <img src="" width="600" height="450" style="position: absolute; top: 280%; left: 10%;">
+        <div style="position:absolute;top:55%;left:35%;"> Choose parts of the image that correspond to a selected parking space then submit.</div>
+        <img id="canvasimg" width="600" height="450" style="position:absolute;top:70%;left:10%;" style="display: none" src="">
+
+        <div class="form-group">
+          <form class="" method="post" action="" style="position: absolute;top: 70%;left: 85%" role="form">
+            <?php
+              echo $message;
+            ?>
+            <select id="parkingspace" name="parkingspace" class="form-control form-group">
+              <?php
+                include("../php/parkingspacelist.php");
+              ?>
+            </select>
+            <input type="text" name="coord1" class="form-control form-group" id="coord1">
+            <input type="text" name="coord2" class="form-control form-group" id="coord2">
+            <input type="text" name="coord3" class="form-control form-group" id="coord3">
+            <input type="text" name="coord4" class="form-control form-group" id="coord4">
+            <input type="submit" class="btn btn-lg btn-primary" value="Submit Coordinates" id="submit" name="coordinates" style="width: 100%;">
+            <input type="button" class="btn btn-lg btn-primary" value="Clear" id="clr" size="23" onclick="clear()" style="margin-top: 10px; width: 100%;">
+            <p><?php
+              echo $outputtag;
+            ?></p>
+          </form>
+        </div>
+      </div>
+    </div>
+    </div>
+    </div><!-- /.container -->
+
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery.min.js"><\/script>')</script>
+    <script src="../dist/js/bootstrap.min.js"></script>
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <script src="../assets/js/ie10-viewport-bug-workaround.js"></script>
+    <script src="../dist/js/jquery-3.3.1.js"></script>
+    <script src="../dist/js/calibrate.js"></script>
+  </body>
+</html>
