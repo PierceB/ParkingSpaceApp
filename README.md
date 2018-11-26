@@ -11,9 +11,5 @@ Repository for the parking space app by the Wits Designers.
 To run this on your own machine make sure to combine the comvo_1.h5.part* files using 
 cat comvo_1.h5.part* > comvo_1.h5
 
-The project is still in early devolpment.
-
-The coverage badge is only checking the ImageCropper code at the moment.
-
-Add any notes that are needed in this read me. 
+ 
 
