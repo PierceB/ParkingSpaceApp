@@ -74,6 +74,29 @@ $(document).ready(function () {
         }
     });
 
+    $("#can1").click(function (event) {
+        var posX = event.pageX - $(this).offset().left;
+        var posY = event.pageY - $(this).offset().top;
+        /*
+        push coordinates to input box
+         */
+        if ($("#coord11").val() == ""){
+            $("#coord11").val(posX + "," + posY);
+            drawDot1(posX, posY);
+        }else if ($("#coord21").val() == ""){
+            $("#coord21").val(posX + "," + posY);
+            drawDot1(posX, posY);
+        }else if ($("#coord31").val() == ""){
+            $("#coord31").val(posX + "," + posY);
+            drawDot1(posX, posY);
+        } else if ($("#coord41").val() == "") {
+            $("#coord41").val(posX + "," + posY);
+            drawDot1(posX, posY);
+        }else {
+            alert("4 points have been clicked already. Please click save or clear.");
+        }
+    });
+
     $("#clr").click(function (event) {
         $("#coord1").val("");
         $("#coord2").val("");
@@ -118,6 +141,15 @@ function clear() {
 
 function drawDot(x, y) {
     context = $('#can')[0].getContext('2d');
+    context.fillStyle = color;
+    context.beginPath();
+    context.arc(x, y, 2, 0, 2*Math.PI);
+    context.fill();
+    context.closePath();
+}
+
+function drawDot1(x, y) {
+    context = $('#can1')[0].getContext('2d');
     context.fillStyle = color;
     context.beginPath();
     context.arc(x, y, 2, 0, 2*Math.PI);
