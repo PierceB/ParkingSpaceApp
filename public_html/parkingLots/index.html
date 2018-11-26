@@ -1,10 +1,10 @@
 <?php
-    session_start();
-    if(!isset($_SESSION["login_user"])){
-        header("Location: ../index.html");
-        die();
-    }
-    include("../php/classify.php");
+include("../php/config.php");
+session_start();
+if(!isset($_SESSION["login_user"])){
+    header("Location: ../index.html");
+    die();
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -31,7 +31,6 @@
     <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
     <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
     <script src="../assets/js/ie-emulation-modes-warning.js"></script>
-    <script type="text/javascript"></script>
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
@@ -40,7 +39,7 @@
     <![endif]-->
   </head>
 
-  <body onload="init()">
+  <body>
 
     <nav class="navbar navbar-inverse navbar-fixed-top">
       <div class="container">
@@ -56,9 +55,9 @@
         <div id="navbar" class="collapse navbar-collapse">
           <ul class="nav navbar-nav">
             <li><a href="../dashboard/index.html">Dashboard</a></li>
-            <li><a href="../parkingLots/index.html">Parking Lots</a></li>
+            <li class="active"><a href="#">Parking Lots</a></li>
             <li><a href="../crop/index.html">Start Cropping</a></li>
-            <li class="active"><a href="../classify/index.html">Classify</a></li>
+            <li><a href="../classify/index.html">Classify</a></li>
             <li><a href="../register/index.html">Register</a></li>
             <li><a href="../php/logout.php">Logout</a></li>
           </ul>
@@ -71,32 +70,15 @@
             <div class="col-sm-3 col-md-2 sidebar">
               <ul class="nav nav-sidebar">
                 <?php
-                  include("../php/classifylotlist.php");
+                    include("../php/parkinglotlist.php");
                 ?>
               </ul>
             </div>
             <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
       <div class="starter-template">
-        <div class="page-header">
-        	<h1>Crop Image</h1>
-      	</div>
-        <canvas id="can" width="600" height="450" style="position:absolute;top:70%;left:10%;border:2px solid;"></canvas>
-        <div style="position:absolute;top:55%;left:35%;"> Classify image accordingly.</div>
-        <img id="canvasimg" style="position:absolute;top:70%;left:50%;" style="display:none;">
-        <form method="post" style="position: absolute;top: 70%;left: 85%" role="form">
-          <select name="parkingspace" class="form-group form-control">
-            <?php
-              include("../php/parkingspacelist.php");
-            ?>
-          </select>
-          <input type="text" name="open" class="form-control form-group">
-          <input type="submit" class="btn btn-lg btn-primary" name="classifybay" value="Classify Bay" style="margin-bottom: 10px; width: 100%">
-          <input type="submit" class="btn btn-lg btn-primary" name="update" value="Update Lot" style="margin-bottom: 10px; width: 100%;">
-          <p><?php
-            echo $outputtag;
-          ?></p>
-        </form>
-      </div>
+        <?php
+          include("../php/getparkinglot.php");
+        ?>
     </div>
     </div>
     </div><!-- /.container -->

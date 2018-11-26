@@ -4,7 +4,7 @@
         header("Location: ../index.html");
         die();
     }
-    include("../php/classify.php");
+    include("../php/calibrate.php");
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -31,7 +31,9 @@
     <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
     <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
     <script src="../assets/js/ie-emulation-modes-warning.js"></script>
-    <script type="text/javascript"></script>
+    <script src="../dist/js/coordinates.js"></script>
+    <script type="text/javascript">
+    </script>
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
@@ -58,8 +60,8 @@
             <li><a href="../dashboard/index.html">Dashboard</a></li>
             <li><a href="../parkingLots/index.html">Parking Lots</a></li>
             <li><a href="../crop/index.html">Start Cropping</a></li>
-            <li class="active"><a href="../classify/index.html">Classify</a></li>
-            <li><a href="../calibrate/index.html">Calibrate</a></li>
+            <li><a href="../classify/index.html">Classify</a></li>
+            <li class="active"><a href="#">Calibrate</a></li>
             <li><a href="../register/index.html">Register</a></li>
             <li><a href="../php/logout.php">Logout</a></li>
           </ul>
@@ -72,34 +74,42 @@
             <div class="col-sm-3 col-md-2 sidebar">
               <ul class="nav nav-sidebar">
                 <?php
-                  include("../php/classifylotlist.php");
+                  include("../php/calibratelotlist.php");
                 ?>
               </ul>
             </div>
             <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
       <div class="starter-template">
         <div class="page-header">
-        	<h1>Crop Image</h1>
+        	<h1>Calibrate Parking Lot</h1>
       	</div>
-        <canvas id="can" width="600" height="450" style="position:absolute;top:70%;left:10%;border:2px solid;z-index: 2;"></canvas>
-        <div style="position:absolute;top:55%;left:35%;"> Classify image accordingly. If the parking bay is taken, enter '0' in the text field or else enter '1' in the text field then click 'Classify Bay'. To run the classifier, click 'Update Lot'.</div>
-        <img id="canvasimg" style="position:absolute;top:70%;left:50%;" style="display:none;">
-        <form method="post" style="position: absolute;top: 70%;left: 85%" role="form">
-          <p><?php
-              echo $message;
-          ?></p>
-          <select id="parkingspace" name="parkingspace" class="form-group form-control">
+        <canvas id="cantop" width="600" height="450" style="position:absolute;top:70%;left:10%; z-index: 2;"></canvas>
+        <canvas id="can" width="600" height="450" style="position: absolute; top: 280%; left: 10%; z-index: 2;"></canvas>
+        <img src="" width="600" height="450" style="position: absolute; top: 280%; left: 10%;">
+        <div style="position:absolute;top:55%;left:35%;"> Choose parts of the image that correspond to a selected parking space then submit.</div>
+        <img id="canvasimg" width="600" height="450" style="position:absolute;top:70%;left:10%;" style="display: none" src="">
+
+        <div class="form-group">
+          <form class="" method="post" action="" style="position: absolute;top: 70%;left: 85%" role="form">
             <?php
-              include("../php/parkingspacelist.php");
+              echo $message;
             ?>
-          </select>
-          <input type="text" name="open" class="form-control form-group">
-          <input type="submit" class="btn btn-lg btn-primary" name="classifybay" value="Classify Bay" style="margin-bottom: 10px; width: 100%">
-          <input type="submit" class="btn btn-lg btn-primary" name="update" value="Update Lot" style="margin-bottom: 10px; width: 100%;">
-          <p><?php
-            echo $outputtag;
-          ?></p>
-        </form>
+            <select id="parkingspace" name="parkingspace" class="form-control form-group">
+              <?php
+                include("../php/parkingspacelist.php");
+              ?>
+            </select>
+            <input type="text" name="coord1" class="form-control form-group" id="coord1">
+            <input type="text" name="coord2" class="form-control form-group" id="coord2">
+            <input type="text" name="coord3" class="form-control form-group" id="coord3">
+            <input type="text" name="coord4" class="form-control form-group" id="coord4">
+            <input type="submit" class="btn btn-lg btn-primary" value="Submit Coordinates" id="submit" name="coordinates" style="width: 100%;">
+            <input type="button" class="btn btn-lg btn-primary" value="Clear" id="clr" size="23" onclick="clear()" style="margin-top: 10px; width: 100%;">
+            <p><?php
+              echo $outputtag;
+            ?></p>
+          </form>
+        </div>
       </div>
     </div>
     </div>
@@ -114,6 +124,7 @@
     <script src="../dist/js/bootstrap.min.js"></script>
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
     <script src="../assets/js/ie10-viewport-bug-workaround.js"></script>
-    <script type="text/javascript" src="../dist/js/classify.js"></script>
+    <script src="../dist/js/jquery-3.3.1.js"></script>
+    <script src="../dist/js/calibrate.js"></script>
   </body>
 </html>
