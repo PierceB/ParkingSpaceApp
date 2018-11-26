@@ -43,7 +43,7 @@
     <![endif]-->
   </head>
 
-  <body onload="init()">
+  <body>
 
     <nav class="navbar navbar-inverse navbar-fixed-top">
       <div class="container">
@@ -63,6 +63,7 @@
             <li class="active"><a href="#">Start Cropping</a></li>
             <li><a href="../classify/index.html">Classify</a></li>
             <li><a href="../register/index.html">Register</a></li>
+            <li><a href="../calibrate/index.html">Calibrate</a></li>
             <li><a href="../php/logout.php">Logout</a></li>
           </ul>
         </div><!--/.nav-collapse -->
@@ -104,6 +105,7 @@
             <input type="text" name="coord4" class="form-control form-group" id="coord4">
             <input type="submit" class="btn btn-lg btn-primary" value="Submit Coordinates" id="submit" name="coordinates" style="width: 100%;">
             <input type="button" class="btn btn-lg btn-primary" value="Clear" id="clr" size="23" onclick="clear()" style="margin-top: 10px; width: 100%;">
+            <input type="submit" class="btn btn-lg btn-primary" value="Delete Entry" id="delete" name="delete" style="margin-top: 10px; width: 100%;">
             <input type="submit" class="btn btn-lg btn-primary" value="Generate Images" id="generate" name="generate" style="margin-top: 10px; margin-bottom: 10px; width: 100%;">
             <p><?php
               echo $outputtag;
