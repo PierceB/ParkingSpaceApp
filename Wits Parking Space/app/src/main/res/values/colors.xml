@@ -9,5 +9,6 @@
     <color name="gradStart">#FFFFFF</color>
     <color name="gradStop">#23A7D8</color>
     <color name="witsBlue">#013768</color>
+    <color name="parking_red">#ff000b</color>
 
 </resources>
