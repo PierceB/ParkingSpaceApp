@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.wits.witsparkingspace">
 
+    <uses-permission android:name="android.permission.INTERNET"/>
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -19,6 +21,8 @@
         <activity android:name=".MainActivity" />
         <activity android:name=".activity_west_campus" />
         <activity android:name=".activity_east_campus"></activity>
+        <activity android:name=".Pop"
+            android:theme="@style/AppTheme.CustomTheme"></activity>
     </application>
 
 
