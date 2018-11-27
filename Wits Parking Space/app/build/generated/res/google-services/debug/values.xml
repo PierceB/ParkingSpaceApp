@@ -1,1 +1,11 @@
-
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="default_web_client_id" translatable="false">184353238587-52p4bgv7gf28nm3ujj7ru74pq9p4v82v.apps.googleusercontent.com</string>
+    <string name="firebase_database_url" translatable="false">https://wits-parking-spa-1537203899285.firebaseio.com</string>
+    <string name="gcm_defaultSenderId" translatable="false">184353238587</string>
+    <string name="google_api_key" translatable="false">AIzaSyCR1XWBfKXSwcfKT39T4zYLc1ksR9KDWn0</string>
+    <string name="google_app_id" translatable="false">1:184353238587:android:0b796c7859e872d3</string>
+    <string name="google_crash_reporting_api_key" translatable="false">AIzaSyCR1XWBfKXSwcfKT39T4zYLc1ksR9KDWn0</string>
+    <string name="google_storage_bucket" translatable="false">wits-parking-spa-1537203899285.appspot.com</string>
+    <string name="project_id" translatable="false">wits-parking-spa-1537203899285</string>
+</resources>
